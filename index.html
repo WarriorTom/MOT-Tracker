@@ -1,131 +1,101 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Warrior Logistics — MOT Tracker</title>
 <style>
-:root{--red:#cc0000;--red2:#a90000;--black:#0b0b0b;--panel:#151515;--panel2:#1c1c1c;--line:#2c2c2c;--text:#f4f4f4;--muted:#a9a9a9;--green:#25c26e;--amber:#f2b84b;--orange:#ff8c42;--danger:#ff4d4d}
-*{box-sizing:border-box}
-body{margin:0;background:#090909;color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}
-header{background:linear-gradient(135deg,#050505,#171717);border-bottom:1px solid #2a2a2a;padding:22px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px;position:sticky;top:0;z-index:5}
-.brand{display:flex;align-items:center;gap:14px}.logo{width:44px;height:44px;background:var(--red);border-radius:10px;display:grid;place-items:center;font-weight:900;font-size:20px;box-shadow:0 0 25px #cc000033}.brand h1{margin:0;font-size:21px}.brand span{font-size:12px;color:var(--muted)}
-button{border:0;border-radius:9px;padding:11px 15px;font-weight:800;cursor:pointer}.primary{background:var(--red);color:white}.primary:hover{background:#e00000}.secondary{background:#252525;color:white}
-main{max-width:1300px;margin:auto;padding:28px}
-.hero{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:25px}.hero h2{font-size:30px;margin:0 0 5px}.hero p{margin:0;color:var(--muted)}
-.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:22px}.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}.card .label{color:var(--muted);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}.card .num{font-size:30px;font-weight:900;margin-top:7px}.red{border-top:3px solid var(--danger)}.orange{border-top:3px solid var(--orange)}.amber{border-top:3px solid var(--amber)}.green{border-top:3px solid var(--green)}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;background:var(--panel);padding:14px;border:1px solid var(--line);border-radius:14px;margin-bottom:14px}.search{flex:1;min-width:220px}.toolbar input,.toolbar select{background:#0d0d0d;color:white;border:1px solid #333;border-radius:9px;padding:11px 12px;outline:none}.toolbar input:focus,.toolbar select:focus{border-color:var(--red)}
-.tablewrap{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:auto}table{width:100%;border-collapse:collapse;min-width:800px}th{background:#101010;color:#aaa;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;padding:14px}td{padding:14px;border-top:1px solid var(--line);font-size:14px}tr:hover td{background:#191919}.reg{font-weight:900;letter-spacing:.06em}.status{display:inline-flex;align-items:center;gap:7px;padding:6px 9px;border-radius:999px;font-size:11px;font-weight:900}.status.ok{background:#123522;color:#66e69a}.status.amber{background:#3b2f12;color:#ffd36a}.status.orange{background:#3b2112;color:#ffad76}.status.overdue{background:#3b1212;color:#ff7777}.days{font-weight:900}.actions button{padding:7px 9px;font-size:11px;margin-right:5px}
-.empty{text-align:center;padding:50px;color:var(--muted)}
-.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:20px;z-index:20}.modal.show{display:flex}.modalbox{width:100%;max-width:460px;background:#171717;border:1px solid #333;border-radius:16px;padding:22px;box-shadow:0 25px 80px #000}.modalbox h3{margin-top:0}.field{margin-bottom:14px}.field label{display:block;font-size:12px;color:#aaa;margin-bottom:6px}.field input{width:100%;padding:12px;background:#0b0b0b;border:1px solid #333;color:#fff;border-radius:9px}.modalactions{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}
-@media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}.hero{align-items:start;flex-direction:column}}
-@media(max-width:520px){main{padding:16px}.cards{grid-template-columns:1fr 1fr}.card .num{font-size:24px}header{padding:16px}.brand h1{font-size:17px}}
+:root{--red:#cc0000;--bg:#090909;--panel:#151515;--panel2:#1e1e1e;--line:#303030;--text:#f5f5f5;--muted:#a7a7a7;--green:#28c76f;--amber:#f5b942;--orange:#ff8b42;--danger:#ff5252}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px Inter,Segoe UI,Arial,sans-serif}
+button,input{font:inherit}button{cursor:pointer;border:0}.top{height:72px;padding:0 28px;background:#0d0d0d;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.brand{display:flex;gap:12px;align-items:center}.mark{width:40px;height:40px;border-radius:10px;background:var(--red);display:grid;place-items:center;font-weight:1000;font-size:20px}.brand b{font-size:18px}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.08em}
+.actions{display:flex;gap:8px}.btn{padding:10px 14px;border-radius:9px;background:#292929;color:#fff;font-weight:800}.btn.red{background:var(--red)}
+.wrap{max-width:1350px;margin:auto;padding:28px}.hero{display:flex;justify-content:space-between;align-items:end;margin-bottom:22px}.hero h1{margin:0 0 5px;font-size:30px}.hero p{margin:0;color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:17px}.card small{color:var(--muted);text-transform:uppercase;font-weight:800;font-size:10px}.card strong{display:block;font-size:28px;margin-top:6px}
+.tools{display:flex;gap:10px;margin-bottom:12px}.search{flex:1;background:#111;border:1px solid var(--line);border-radius:9px;color:#fff;padding:11px 13px}.tools select{background:#111;color:#fff;border:1px solid var(--line);border-radius:9px;padding:10px}
+.tablebox{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:auto}table{width:100%;border-collapse:collapse;min-width:850px}th{padding:13px;text-align:left;color:#999;font-size:10px;text-transform:uppercase;background:#101010}td{padding:14px;border-top:1px solid var(--line)}.reg{font-weight:900;letter-spacing:.08em}.pill{padding:6px 9px;border-radius:99px;font-size:10px;font-weight:900}.ok{background:#103b25;color:#65e79b}.warn{background:#3b2f10;color:#ffd36a}.soon{background:#3b2111;color:#ffae78}.bad{background:#3b1111;color:#ff7777}
+.actions2 button{padding:7px 9px;border-radius:7px;background:#292929;color:#fff;font-size:11px;margin-right:5px}.empty{text-align:center;padding:50px;color:var(--muted)}
+.modal{display:none;position:fixed;inset:0;background:#000b;z-index:30;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.box{width:100%;max-width:500px;background:#181818;border:1px solid #393939;border-radius:16px;padding:22px}.box h2{margin-top:0}.field{margin:13px 0}.field label{display:block;color:#aaa;font-size:11px;font-weight:800;margin-bottom:6px}.field input{width:100%;padding:11px;background:#0c0c0c;border:1px solid #3a3a3a;color:#fff;border-radius:8px}.modalfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+#layout2,#layout3{display:none}
+
+/* LAYOUT 2 */
+.l2 .hero2{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.l2 .title{font-size:25px;font-weight:900}.l2 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.vehicle{background:#151515;border:1px solid #292929;border-radius:15px;padding:18px;position:relative}.vehicle .stripe{height:3px;background:var(--red);position:absolute;top:0;left:18px;right:18px;border-radius:4px}.vehicle .regbig{font-size:21px;font-weight:1000;margin:5px 0 15px}.vehicle .date{color:#aaa;font-size:12px}.vehicle .days{font-size:25px;font-weight:900;margin:4px 0 12px}.vehicle .foot{display:flex;justify-content:space-between;align-items:center}.vehicle .mini{font-size:10px;color:#777;text-transform:uppercase}
+
+/* LAYOUT 3 */
+.l3 .rail{display:grid;grid-template-columns:250px 1fr;gap:18px}.l3 .side{background:#101010;border:1px solid #292929;border-radius:16px;padding:18px;height:max-content}.l3 .side h3{margin-top:0}.filterbtn{width:100%;text-align:left;padding:11px;border-radius:8px;background:transparent;color:#ddd;margin:3px 0}.filterbtn.active,.filterbtn:hover{background:#242424}.l3 .list{display:flex;flex-direction:column;gap:9px}.l3 .row{background:#151515;border:1px solid #292929;border-radius:12px;padding:14px;display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr auto;align-items:center;gap:12px}.l3 .row b{font-size:16px}.l3 .muted{color:#999;font-size:11px}.l3 .bar{height:5px;background:#282828;border-radius:10px;overflow:hidden;margin-top:5px}.l3 .bar span{display:block;height:100%;background:var(--red)}
+.switcher{display:flex;gap:6px;background:#111;border:1px solid #292929;border-radius:10px;padding:4px;margin-bottom:20px;width:max-content}.switcher button{background:transparent;color:#aaa;padding:8px 12px;border-radius:7px;font-weight:800}.switcher button.active{background:var(--red);color:#fff}
+@media(max-width:850px){.cards{grid-template-columns:repeat(2,1fr)}.l2 .grid{grid-template-columns:1fr 1fr}.l3 .rail{grid-template-columns:1fr}.l3 .row{grid-template-columns:1fr 1fr}.hero{align-items:flex-start;gap:15px;flex-direction:column}}
+@media(max-width:560px){.wrap{padding:16px}.cards{grid-template-columns:1fr 1fr}.hero h1{font-size:24px}.top{padding:0 16px}.brand b{font-size:14px}}
 </style>
 </head>
 <body>
-<header>
-  <div class="brand"><div class="logo">W</div><div><h1>WARRIOR LOGISTICS</h1><span>Fleet Management • MOT Tracker</span></div></div>
-  <button class="primary" onclick="openAdd()">+ Add Van</button>
-</header>
-<main>
-  <section class="hero">
-    <div><h2>MOT Tracker</h2><p>Monitor every vehicle's MOT expiry at a glance.</p></div>
-    <button class="secondary" onclick="exportCSV()">Export CSV</button>
-  </section>
+<header class="top"><div class="brand"><div class="mark">W</div><div><b>WARRIOR LOGISTICS</b><small>FLEET • MOT TRACKER</small></div></div><div class="actions"><button class="btn" onclick="exportCSV()">Export</button><button class="btn red" onclick="openAdd()">+ Add Vehicle</button></div></header>
 
-  <section class="cards">
-    <div class="card"><div class="label">Total Vans</div><div class="num" id="total">0</div></div>
-    <div class="card red"><div class="label">Overdue</div><div class="num" id="overdue">0</div></div>
-    <div class="card orange"><div class="label">Due ≤ 7 Days</div><div class="num" id="seven">0</div></div>
-    <div class="card amber"><div class="label">Due ≤ 30 Days</div><div class="num" id="thirty">0</div></div>
-    <div class="card green"><div class="label">OK</div><div class="num" id="ok">0</div></div>
-  </section>
+<main class="wrap">
+<div class="hero"><div><h1>MOT Tracker</h1><p>Track MOT tests, expiry dates and upcoming renewals.</p></div></div>
 
-  <section class="toolbar">
-    <input class="search" id="search" placeholder="Search van number or registration..." oninput="render()">
-    <select id="filter" onchange="render()">
-      <option value="all">All statuses</option>
-      <option value="overdue">Overdue</option>
-      <option value="7">Due within 7 days</option>
-      <option value="30">Due within 30 days</option>
-      <option value="ok">OK</option>
-    </select>
-  </section>
 
-  <section class="tablewrap">
-    <table>
-      <thead><tr><th>Van Number</th><th>Registration</th><th>MOT Due Date</th><th>Days Remaining</th><th>Status</th><th>Actions</th></tr></thead>
-      <tbody id="tbody"></tbody>
-    </table>
-    <div class="empty" id="empty" style="display:none">No vans match your search.</div>
-  </section>
+<section id="layout1">
+<div class="cards"><div class="card"><small>Total Vehicles</small><strong id="cTotal">0</strong></div><div class="card"><small>Overdue</small><strong id="cBad">0</strong></div><div class="card"><small>Due ≤ 30 Days</small><strong id="cSoon">0</strong></div><div class="card"><small>OK</small><strong id="cOk">0</strong></div></div>
+<div class="tools"><input class="search" id="search" placeholder="Search registration..." oninput="render()"><select id="filter" onchange="render()"><option value="all">All vehicles</option><option value="bad">Overdue</option><option value="soon">Due within 30 days</option><option value="ok">OK</option></select></div>
+<div class="tablebox"><table><thead><tr><th>Registration</th><th>MOT Due Date</th><th>Days Remaining</th><th>Status</th><th>Actions</th></tr></thead><tbody id="tb"></tbody></table><div id="empty1" class="empty" style="display:none">No vehicles found.</div></div>
+</section>
+
+
 </main>
 
-<div class="modal" id="modal">
- <div class="modalbox">
-  <h3 id="modalTitle">Add Van</h3>
-  <div class="field"><label>VAN NUMBER</label><input id="vanInput"></div>
-  <div class="field"><label>VAN REG</label><input id="regInput"></div>
-  <div class="field"><label>MOT DUE DATE</label><input id="dateInput" type="date"></div>
-  <div class="modalactions"><button class="secondary" onclick="closeModal()">Cancel</button><button class="primary" onclick="saveVan()">Save Van</button></div>
- </div>
-</div>
+<div class="modal" id="modal"><div class="box"><h2 id="mtitle">Add Vehicle</h2>
+<div class="field"><label>REGISTRATION</label><input id="reg"></div>
+<div class="field"><label>NEW MOT COMPLETED DATE</label><input id="last" type="date"><small style="color:#777">Enter the date the latest MOT was completed. The next MOT due date will be calculated automatically as 1 year later.</small></div>
+<div class="modalfoot"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn red" onclick="saveVehicle()">Save Vehicle</button></div>
+</div></div>
 
 <script>
-const initialData = [{"van": "2", "reg": "LC71 ODU", "due": "2027-08-26"}, {"van": "3", "reg": "LD71 UMC", "due": "2026-11-05"}, {"van": "4", "reg": "LD71 UPM", "due": "2026-11-25"}, {"van": "5", "reg": "LD71 ZWT", "due": "2026-10-24"}, {"van": "6", "reg": "LD71 OVL", "due": "2026-11-10"}, {"van": "7", "reg": "LD71 MHF", "due": "2026-11-12"}, {"van": "8", "reg": "LD71 AXK", "due": "2026-12-30"}, {"van": "9", "reg": "LC71 KNP", "due": "2026-10-28"}, {"van": "10", "reg": "LD71 MDF", "due": "2027-02-26"}, {"van": "11", "reg": "LD71 DVR", "due": "2027-02-15"}, {"van": "12", "reg": "KW24 TWM", "due": "2027-07-04"}, {"van": "13", "reg": "KW24 HKK", "due": "2027-07-04"}, {"van": "14", "reg": "KW24 GNU", "due": "2027-07-04"}];
-const STORAGE_KEY = "warrior_mot_tracker_v1";
-let vans = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null") || initialData;
-let editIndex = -1;
+const initial=[{"reg": "LC71 ODU", "due": "2027-08-26", "lastTest": ""}, {"reg": "LD71 UMC", "due": "2026-11-05", "lastTest": ""}, {"reg": "LD71 UPM", "due": "2026-11-25", "lastTest": ""}, {"reg": "LD71 ZWT", "due": "2026-10-24", "lastTest": ""}, {"reg": "LD71 OVL", "due": "2026-11-10", "lastTest": ""}, {"reg": "LD71 MHF", "due": "2026-11-12", "lastTest": ""}, {"reg": "LD71 AXK", "due": "2026-12-30", "lastTest": ""}, {"reg": "LC71 KNP", "due": "2026-10-28", "lastTest": ""}, {"reg": "LD71 MDF", "due": "2027-02-26", "lastTest": ""}, {"reg": "LD71 DVR", "due": "2027-02-15", "lastTest": ""}, {"reg": "KW24 TWM", "due": "2027-07-04", "lastTest": ""}, {"reg": "KW24 HKK", "due": "2027-07-04", "lastTest": ""}, {"reg": "KW24 GNU", "due": "2027-07-04", "lastTest": ""}];
+const KEY="warrior_mot_tracker_v2";
+let vans=JSON.parse(localStorage.getItem(KEY)||"null")||initial;
+let edit=-1,l3filter="all";
 
-function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(vans)); }
-
-function daysTo(dateStr){
-  if(!dateStr) return null;
-  const today = new Date(); today.setHours(0,0,0,0);
-  const due = new Date(dateStr+"T00:00:00");
-  return Math.round((due-today)/86400000);
-}
-function info(d){
-  if(d === null) return ["","", "no-date"];
-  if(d < 0) return [d,"OVERDUE","overdue"];
-  if(d <= 7) return [d,"DUE WITHIN 7 DAYS","orange"];
-  if(d <= 30) return [d,"DUE WITHIN 30 DAYS","amber"];
-  return [d,"OK","ok"];
-}
-function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));}
+function persist(){localStorage.setItem(KEY,JSON.stringify(vans))}
+function days(s){if(!s)return null;let a=new Date();a.setHours(0,0,0,0);return Math.round((new Date(s+"T00:00:00")-a)/86400000)}
+function status(d){if(d===null)return ["NO DATE","bad"];if(d<0)return["OVERDUE","bad"];if(d<=30)return["DUE WITHIN 30 DAYS","soon"];return["OK","ok"]}
+function fmt(s){return s?new Date(s+"T00:00:00").toLocaleDateString("en-GB"):"—"}
+function esc(s){return String(s||"").replace(/[&<>"']/g,x=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[x]))}
+function matches(v, f="all", q=""){let d=days(v.due),c=status(d)[1];return(!q||v.reg.toLowerCase().includes(q))&&(f==="all"||c===f)}
 function render(){
-  const q=document.getElementById("search").value.toLowerCase().trim();
-  const f=document.getElementById("filter").value;
-  let counts={total:vans.length,overdue:0,seven:0,thirty:0,ok:0};
-  vans.forEach(v=>{const [d,,c]=info(daysTo(v.due)); if(c==="overdue")counts.overdue++; else if(c==="orange")counts.seven++; else if(c==="amber")counts.thirty++; else if(c==="ok")counts.ok++;});
-  for(const k of Object.keys(counts)) document.getElementById(k).textContent=counts[k];
-  const rows=vans.map((v,i)=>({v,i,d:daysTo(v.due),x:info(daysTo(v.due))}))
-    .filter(o=>!q || o.v.van.toLowerCase().includes(q)||o.v.reg.toLowerCase().includes(q))
-    .filter(o=>f==="all" || (f==="overdue"&&o.x[2]==="overdue") || (f==="7"&&o.x[2]==="orange") || (f==="30"&&["orange","amber"].includes(o.x[2])) || (f==="ok"&&o.x[2]==="ok"));
-  const tb=document.getElementById("tbody"); tb.innerHTML="";
-  rows.sort((a,b)=>(a.d??999999)-(b.d??999999)).forEach(o=>{
-    const tr=document.createElement("tr");
-    tr.innerHTML=`<td>${esc(o.v.van)}</td><td class="reg">${esc(o.v.reg)}</td><td>${o.v.due?new Date(o.v.due+"T00:00:00").toLocaleDateString("en-GB"):"—"}</td><td class="days">${o.d===null?"—":o.d+" days"}</td><td><span class="status ${o.x[2]}">${o.x[1]||"NO DATE"}</span></td><td class="actions"><button class="secondary" onclick="openEdit(${o.i})">Edit</button><button class="secondary" onclick="removeVan(${o.i})">Delete</button></td>`;
-    tb.appendChild(tr);
-  });
-  document.getElementById("empty").style.display=rows.length?"none":"block";
+ let counts={total:vans.length,bad:0,soon:0,ok:0};vans.forEach(v=>counts[status(days(v.due))[1]]++);
+ cTotal.textContent=counts.total;cBad.textContent=counts.bad;cSoon.textContent=counts.soon;cOk.textContent=counts.ok;
+ let q=(search?.value||"").toLowerCase().trim(),f=filter?.value||"all";
+ let arr=vans.map((v,i)=>({v,i,d:days(v.due)})).filter(o=>matches(o.v,f,q)).sort((a,b)=>(a.d??999999)-(b.d??999999));
+ tb.innerHTML=arr.map(o=>{let [st,cl]=status(o.d);return `<tr><td class="reg">${esc(o.v.reg)}</td><td>${fmt(o.v.due)}</td><td><b>${o.d===null?"—":o.d+" days"}</b></td><td><span class="pill ${cl}">${st}</span></td><td class="actions2"><button onclick="openEdit(${o.i})">Edit</button><button onclick="del(${o.i})">Delete</button></td></tr>`}).join("");
+ empty1.style.display=arr.length?"none":"block";
+
+ let q2=(search2?.value||"").toLowerCase().trim();
+ let arr2=vans.map((v,i)=>({v,i,d:days(v.due)})).filter(o=>matches(o.v,"all",q2)).sort((a,b)=>(a.d??999999)-(b.d??999999));
+ grid.innerHTML=arr2.map(o=>{let [st,cl]=status(o.d), pct=o.d===null?0:Math.max(0,Math.min(100,o.d/365*100));return `<article class="vehicle"><div class="stripe"></div><div class="regbig">${esc(o.v.reg)}</div><div class="date">Last MOT</div><b>${fmt(o.v.lastTest)}</b><div class="date" style="margin-top:12px">Next MOT Due</div><div class="days">${fmt(o.v.due)}</div><div class="foot"><span class="pill ${cl}">${st}</span><span class="mini">${o.d===null?"":o.d+" days"}</span></div><div class="bar"><span style="width:${pct}%"></span></div><div style="margin-top:12px"><button class="actions2" onclick="openEdit(${o.i})">Edit</button></div></article>`}).join("");
+ empty2.style.display=arr2.length?"none":"block";
+
+ let arr3=vans.map((v,i)=>({v,i,d:days(v.due)})).filter(o=>matches(o.v,l3filter,"")).sort((a,b)=>(a.d??999999)-(b.d??999999));
+ list3.innerHTML=arr3.map(o=>{let [st,cl]=status(o.d),pct=o.d===null?0:Math.max(0,Math.min(100,o.d/365*100));return `<div class="row"><div><b>${esc(o.v.reg)}</b><div class="muted">Last MOT: ${fmt(o.v.lastTest)}</div></div><div><div class="muted">NEXT MOT</div><b>${fmt(o.v.due)}</b></div><div><div class="muted">DAYS LEFT</div><b>${o.d===null?"—":o.d}</b></div><div><span class="pill ${cl}">${st}</span><div class="bar"><span style="width:${pct}%"></span></div></div><div class="actions2"><button onclick="openEdit(${o.i})">Edit</button></div></div>`}).join("");
+ empty3.style.display=arr3.length?"none":"block";
 }
-function openAdd(){editIndex=-1;document.getElementById("modalTitle").textContent="Add Van";vanInput.value="";regInput.value="";dateInput.value="";modal.classList.add("show");}
-function openEdit(i){editIndex=i;const v=vans[i];document.getElementById("modalTitle").textContent="Edit Van";vanInput.value=v.van;regInput.value=v.reg;dateInput.value=v.due;modal.classList.add("show");}
-function closeModal(){modal.classList.remove("show");}
-function saveVan(){
-  const v={van:vanInput.value.trim(),reg:regInput.value.trim().toUpperCase(),due:dateInput.value};
-  if(!v.van||!v.reg||!v.due){alert("Please complete all fields.");return;}
-  if(editIndex===-1)vans.push(v);else vans[editIndex]=v;
-  save();closeModal();render();
-}
-function removeVan(i){if(confirm("Delete this van from the tracker?")){vans.splice(i,1);save();render();}}
-function exportCSV(){
-  const rows=[["VAN NUMBER","VAN REG","MOT DUE DATE","DAYS TO MOT","STATUS"],...vans.map(v=>{const d=daysTo(v.due),x=info(d);return[v.van,v.reg,v.due,d??"",x[1]||"NO DATE"]})];
-  const csv=rows.map(r=>r.map(x=>`"${String(x).replaceAll('"','""')}"`).join(",")).join("\n");
-  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="Warrior_MOT_Tracker.csv";a.click();
-}
+function layout(n,btn){[1,2,3].forEach(i=>document.getElementById("layout"+i).style.display=i===n?"block":"none");document.querySelectorAll(".switcher button").forEach(b=>b.classList.remove("active"));btn.classList.add("active");render()}
+function setL3(f,b){l3filter=f;document.querySelectorAll(".filterbtn").forEach(x=>x.classList.remove("active"));b.classList.add("active");render()}
+function openAdd(){edit=-1;mtitle.textContent="Add Vehicle";reg.value="";last.value="";modal.classList.add("show")}
+function openEdit(i){edit=i;let v=vans[i];mtitle.textContent="Update MOT";reg.value=v.reg;last.value=v.lastTest||"";modal.classList.add("show")}
+function closeModal(){modal.classList.remove("show")}
+function saveVehicle(){
+      let r=reg.value.trim().toUpperCase(), l=last.value;
+      if(!r||!l){alert("Registration and new MOT completed date are required.");return}
+      let d=new Date(l+"T00:00:00");
+      d.setFullYear(d.getFullYear()+1);
+      let dueDate=d.toISOString().slice(0,10);
+      if(edit<0)vans.push({reg:r,lastTest:l,due:dueDate});
+      else vans[edit]={reg:r,lastTest:l,due:dueDate};
+      persist();closeModal();render()
+    }
+function del(i){if(confirm("Delete "+vans[i].reg+" from the tracker?")){vans.splice(i,1);persist();render()}}
+function exportCSV(){let rows=[["REGISTRATION","MOT DUE DATE","DAYS REMAINING","STATUS"],...vans.map(v=>[v.reg,v.due,days(v.due),status(days(v.due))[0]])];let csv=rows.map(r=>r.map(x=>`"${String(x??"").replaceAll('"','""')}"`).join(",")).join("\\n");let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="Warrior_MOT_Tracker.csv";a.click()}
 render();
 </script>
-</body>
-</html>
+</body></html>
